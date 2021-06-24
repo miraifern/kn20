@@ -1,0 +1,81 @@
+import http.client
+import json
+from tkinter import *
+import tk as tk
+win = tk.Tk()
+win.title("Ковід")
+win.geometry('920x445')
+window.resizable(width=False, height=False)
+win.pack_propagate()
+frameTop = tk.Frame(window, bg='#ccbfbe', padx=10, pady=10)
+frameTop.place(relwidth=1, relheight=1)
+def refresh():
+    conn = http.client.HTTPSConnection("vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com")
+    conn.request("GET", "/api/npm-covid-data/europe", headers=headers)
+    res = conn.getresponse()
+    data = res.read()
+    conv_str = data.decode("utf-8")
+    json = json.loads(conv_str)  
+for i in range(1):
+        text.insert('1.0', '-' * 25)
+        text.insert('1.0', '\n')
+        text.insert('1.0', list(json[i].items())[14])
+        text.insert('1.0', '\n')
+        text.insert('1.0', list(json[i].items())[12])
+        text.insert('1.0', '\n')
+        text.insert('1.0', list(json[i].items())[10])
+        text.insert('1.0', '\n')
+        text.insert('1.0', list(json[i].items())[2])
+        text.insert('1.0', '\n')
+ref_but = Button(root, text="Ref", command=refresh)
+ref_but.pack(pady=20)
+box = Entry(root, width=15, borderwidth=5)
+box.pack()
+def search():
+    for i in range(n):
+        search = box.get()
+        search_2 = json[i].get('Country')
+        if search == search_2:
+                text.insert('1.0', '\n')
+                text.insert('1.0', '-' * 25)
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('TotalRecovered'))
+                text.insert('1.0', 'TotalRecovered ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('TotalDeaths'))
+                text.insert('1.0', 'TotalDeaths ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('TotalCases'))
+                text.insert('1.0', 'TotalCases ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', json[i].get('Country'))
+                text.insert('1.0', 'Country ')
+                text.insert('1.0', '\n')
+                text.insert('1.0', 'From Search')
+search_button = Button(root, text="search", command=search)
+search_button.place(x=740, y=66)
+text = Text(width=500, height=500)
+text.pack()
+conn = http.client.HTTPSConnection("vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com")
+headers = {
+    'x-rapidapi-key': "e36cf147d2msh773e180e52d7742p1f4ad1jsnd148121bd4cf",
+    'x-rapidapi-host': "vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com"
+    }
+conn.request("GET", "/api/npm-covid-data/europe", headers=headers)
+res = conn.getresponse()
+data = res.read()
+conv_str = data.decode("utf-8")
+json = json.loads(conv_str)
+for i in range(n):
+    text.insert('1.0', '\n')
+    text.insert('1.0', '-' * 25)
+    text.insert('1.0', '\n')
+    text.insert('1.0', list(json[i].items())[14])
+    text.insert('1.0', '\n')
+    text.insert('1.0', list(json[i].items())[12])
+    text.insert('1.0', '\n')
+    text.insert('1.0', list(json[i].items())[10])
+    text.insert('1.0', '\n')
+    text.insert('1.0', list(json[i].items())[2])
+win.mainloop()
+
